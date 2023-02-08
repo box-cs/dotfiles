@@ -1,0 +1,47 @@
+@import "/home/USERNAME/.cache/wal/colors-waybar.css";
+
+* {
+    font-family: Roboto Mono;
+}
+
+window {
+    background-color: rgba(00, 00, 00, 0);
+}
+
+/* */
+#input {
+    border: 2px solid @background;
+    border-radius: 0px;
+    background-color: @background;
+    color: @foreground;
+}
+
+/*cell */
+#inner-box {
+    border: 2px solid @background;
+    background-color: @color2;
+}
+
+/*cell nth*/
+#entry:nth-child(even){
+    background-color: @color2;
+}
+
+/*cell selected*/
+#entry:selected {
+    background-color: @color4;
+}
+
+/*container*/
+#outer-box {
+    margin: 5px;
+    padding:20px;
+    background-color: rgba(00, 00, 00, 0);
+}
+
+/***/
+#text {
+    padding: 5px;
+    color: @foreground;
+}
+
