@@ -1,4 +1,5 @@
-vim.cmd([[
+vim.cmd(
+[[
   set secure
   set noerrorbells
   set expandtab
@@ -9,10 +10,16 @@ vim.cmd([[
   set nowrap
   set number
   set scrolloff=12
+  set termguicolors
+  set background=dark
   set colorcolumn=90
   set signcolumn=yes
-  set termguicolors
-  ]])
+  set smartindent
+  autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+]])
+
+vim.g.gruvbox_material_background='hard'  
+vim.g.gruvbox_material_better_performance=1
 
 require('packer').startup(function(use)
   -- Packer can manage itself
@@ -20,6 +27,13 @@ require('packer').startup(function(use)
 
   -- Colorscheme
   use 'joshdick/onedark.vim'
+  use 'sainnhe/gruvbox-material'
+  
+  -- General
+  use {
+    'windwp/nvim-autopairs',
+    config = function() require("nvim-autopairs").setup {} end
+  }
   -- LSP
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -50,5 +64,6 @@ lsp.preset('recommended')
 
 lsp.setup()
 
-pcall(vim.cmd, 'colorscheme onedark')
+--pcall(vim.cmd, 'colorscheme onedark')
+pcall(vim.cmd, 'colorscheme gruvbox-material')
 

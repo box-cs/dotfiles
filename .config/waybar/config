@@ -14,10 +14,11 @@
         "on-click": "alacritty -e nmtui"
     },
     "cpu": {
-        "interval": 10,
-        "format": "{}% {icon}",
+        "interval": 5,
+        "format": "{usage}% {icon}",
         "format-icons": [""],
-        "max-length": 10
+        "max-length": 10,
+        "min-length": 3
     },
     "memory": {
         "format": "{used}/{total} {icon}",
@@ -26,20 +27,22 @@
     "pulseaudio": {
         "format": "{volume}% {icon}",
         "format-muted": "MUTED",
+        "smooth-scrolling-threshold": 0.02,
         "format-icons": ["", "", ""]
     },
     "backlight": {
         "device": "acpi_video0",
         "format": "{}% {icon}",
         "format-icons": [""],
-        "on-scroll-up": "light -A 2",
-        "on-scroll-down": "light -U 2"
+        "smooth-scrolling-threshold": 0.02,
+        "on-scroll-up": "light -A 1",
+        "on-scroll-down": "light -U 1"
     },
     "battery": {
         "format": "{capacity}% {icon}",
         "format-icons": ["", "", "", "", ""],
         "format-charging": "{capacity}% ",
-        "full-at":78
+        "full-at":77
     },
     "clock": {
         "format": " {:%H:%M}",

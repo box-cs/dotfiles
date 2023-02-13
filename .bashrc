@@ -6,6 +6,7 @@ if [[ -z $DISPLAY  ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec swaybg -i $HOME/.cache/wal/wal
 fi
 
+alias vim=nvim
 alias code='code --enable-features=UseOzonePlatform --ozone-platform=wayland'
 alias ls='ls --color=auto'
 alias py='python3'
