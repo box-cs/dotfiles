@@ -1,11 +1,9 @@
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+ [[ $- != *i* ]] && return
 # Startup sway and swaybg 
 if [[ -z $DISPLAY  ]] && [[ $(tty) = /dev/tty1 ]]; then
-    exec sway
-    exec swaybg -i $HOME/.cache/wal/wal
+    exec sway 
 fi
-
 alias vim=nvim
 alias code='code --enable-features=UseOzonePlatform --ozone-platform=wayland'
 alias ls='ls --color=auto'
@@ -13,6 +11,7 @@ alias py='python3'
 alias spotify=__spotify
 alias ala=__ala
 alias gu=__gu  # git user switch
+alias swayprop=__swayprop
 
 function __gu {
     if [[ ! -z $1 ]]
@@ -60,14 +59,27 @@ function __ala {
     fi
 }
 
+function virtualenv_info(){
+  # Get Virtual Env
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+      # Strip out the path and just leave the env name
+      venv="${VIRTUAL_ENV##*/}"
+  else
+    venv=""
+    fi 
+
+    [[ -n "$venv" ]] && echo "(venv:$venv) "
+}
+
+function __swayprop(){
+  $(~/.config/sway/swayprop.sh)
+}
 export PATH="${PATH}:${HOME}/.local/bin"
 export XDG_CACHE_HOME=$HOME/.cache
 export TERMINAL=alacritty
 export N_PREFIX=$HOME/.n
 export PATH=$N_PREFIX/bin:$PATH
 
-source ~/.ssh/ssh.config
-source ~/.git-prompt.sh
 
 # Syntactic sugar for ANSI escape sequences
 txtblk='\e[0;30m' # Black - Regular
@@ -105,7 +117,8 @@ bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 
 # Prompt variables
-PROMPT_BEFORE="\u@\h \w "
+VENV="\$(virtualenv_info)"
+PROMPT_BEFORE="[\u@\h \w]${VENV}"
 PROMPT_AFTER="$ "
 # Prompt command
 PROMPT_COMMAND='__git_ps1 "$PROMPT_BEFORE" "$PROMPT_AFTER"'
@@ -117,6 +130,8 @@ export GIT_PS1_SHOWUNTRACKEDFILES="true"
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWCOLORHINTS="true"
 
+source ~/.ssh/ssh.config
+source ~/.git-prompt.sh
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.

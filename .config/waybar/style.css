@@ -4,9 +4,10 @@
     color:  @foreground;
     border: none;
     border-radius: 0;
-    font-family: "Roboto Mono", "Font Awesome 5 Free Solid";
-    font-size: 12px;
-    min-height: 24px;
+    font-weight: bold;
+    font-family: "Roboto Mono Medium", "Font Awesome 5 Free Solid";
+    font-size: 14px;
+    min-height: 2em;
 }
 
 window#waybar {

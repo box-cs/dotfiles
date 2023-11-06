@@ -4,21 +4,19 @@ include "$HOME/.cache/wal/colors-sway"
 set $mod Mod4
 
 input type:touchpad {
-    scroll_factor 0.3
+    scroll_factor 0.5
 }
-
-#set $opacity 0.9
-#for_window [class=".*"] opacity $opacity 
-#for_window [app_id=".*"] opacity $opacity 
+ 
+exec --no-startup-id ~/.config/sway/sway-bg.sh & 
 
 #screenshots
-bindsym $mod+Shift+s exec --no-startup-id ~/.config/i3/screenshot.sh --no-fork 
+bindsym $mod+Shift+s exec --no-startup-id ~/.config/sway/screenshot.sh --no-fork
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango: Noto Sans 10
 
-exec_always --no-startup-id ~/.config/i3/swayidle-launch.sh --no-fork
+exec_always --no-startup-id ~/.config/sway/swayidle-launch.sh --no-fork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
@@ -29,14 +27,18 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
+#bindsym XF86AudioMicRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +10%
+#bindsym XF86AudioMicLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -10%
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
+bindsym print exec --no-startup-id grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg --no-fork
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id alacritty 
 # start 3 terminals
-bindsym $mod+Shift+Escape exec ~/.config/i3/layout.sh
+bindsym $mod+Shift+Escape exec ~/.config/sway/layout.sh
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -119,8 +121,9 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 #assigning clients to workspaces
-assign [class="VSCodium"] 2
-assign [class="Brave"] 4
+assign [class="Code"] 2
+assign [class="Firefox"] 4
+assign [class="firefox"] 4
 assign [class="Google-chrome"] 4
 assign [instance="spotify"] 9 
 assign [class="discord"] 10
@@ -152,10 +155,7 @@ bindsym $mod+r mode "resize"
 
 #PYWAL ENABLED THEME
 include "$HOME/.cache/wal/colors-sway"
-#class         border  backgr.  text       indicator child_border
-client.focused $color3 $color3 $foreground $foreground $color3
 
-#gap size settings
 for_window [class="^.*"] border pixel 1
 gaps inner 4
 gaps outer 4
@@ -163,5 +163,7 @@ smart_gaps on
 smart_borders on
 
 # waybar w/ pywal
-exec_always --no-startup-id ~/.config/i3/waybar.sh --no-fork
-bindsym $mod+Shift+r exec ~/.config/i3/sway-bg.sh & 
+exec_always --no-startup-id ~/.config/sway/waybar.sh --no-fork
+bindsym $mod+Shift+r exec --no-startup-id $(. ~/.config/sway/sway-bg-change.sh &) --no-fork 
+
+output HDMI-A-1 pos 0 0 res 2560x1440@165.080Hz

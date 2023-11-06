@@ -2,16 +2,28 @@
     "layer": "top",
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "cpu", "temperature", "custom/rpm", "memory", "backlight", "pulseaudio","battery"],
+    "modules-right": ["network", "temperature", "cpu", "custom/rpm", "memory", "backlight", "pulseaudio","tray", "battery"],
     "custom/rpm": {
-        "format": "{}RPM {icon}",
+        "format": "{} RPM {icon}",
         "format-icons": [""],
-        "exec": "~/.config/i3/fans.sh",
+        "exec": "~/.config/sway/fans-asus.sh",
         "interval": 2,
     },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
+      },
     "network": {
-        "format": "{essid} {frequency}GHz ",
+        "interface": "eth0",
+        "format": "{ssid}",
+        "format-disconnected": "OFFLINE",
+        "format-ethernet": "{ipaddr} ",
         "on-click": "alacritty -e nmtui"
+    },
+    "network": {
+        "interface": "wlan0",
+        "format": "{essid} {frequency}GHz",
+        "format-disconnected": "OFFLINE"
     },
     "cpu": {
         "interval": 5,
@@ -25,11 +37,13 @@
         "format-icons": [""]
     },
     "pulseaudio": {
-        "format": "{volume}% {icon}",
+        "format": "{volume} {icon} {format_source}",
         "format-muted": "MUTED",
         "smooth-scrolling-threshold": 0.02,
-        "format-icons": ["", "", ""]
-    },
+        "format-icons": ["", "", ""],
+        "format-source":"Mic ON",
+        "format-source-muted":"Mic OFF"
+      },
     "backlight": {
         "device": "acpi_video0",
         "format": "{}% {icon}",
@@ -39,13 +53,19 @@
         "on-scroll-down": "light -U 1"
     },
     "battery": {
+        "bat": "BAT0",
+        "interval": 5,
+        "states": {
+          "warning": 30,
+          "critical": 15
+        },
         "format": "{capacity}% {icon}",
+        "format-charging" : "⚡",
         "format-icons": ["", "", "", "", ""],
-        "format-charging": "{capacity}% ",
-        "full-at":77
+        "max-length": 25
     },
     "clock": {
         "format": " {:%H:%M}",
-        "format-alt": " {:%a, %d. %b  %H:%M}",
+        "format-alt": " It's {:%A, %b %d - %H:%M}",
     }
 }

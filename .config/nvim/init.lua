@@ -1,5 +1,6 @@
 vim.cmd(
-[[
+  [[
+  set clipboard=unnamedplus
   set secure
   set noerrorbells
   set expandtab
@@ -18,8 +19,8 @@ vim.cmd(
   autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
 ]])
 
-vim.g.gruvbox_material_background='hard'  
-vim.g.gruvbox_material_better_performance=1
+vim.g.gruvbox_material_background = 'hard'
+vim.g.gruvbox_material_better_performance = 1
 
 require('packer').startup(function(use)
   -- Packer can manage itself
@@ -28,7 +29,11 @@ require('packer').startup(function(use)
   -- Colorscheme
   use 'joshdick/onedark.vim'
   use 'sainnhe/gruvbox-material'
-  
+
+  use { 'neoclide/coc.nvim', branch = 'release' }
+  -- Lsg Signature (hints)
+  use 'ray-x/lsp_signature.nvim'
+
   -- General
   use {
     'windwp/nvim-autopairs',
@@ -40,21 +45,21 @@ require('packer').startup(function(use)
     branch = 'v1.x',
     requires = {
       -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
 
       -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lua' },
 
       -- Snippets
-      {'L3MON4D3/LuaSnip'},
-      {'rafamadriz/friendly-snippets'},
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
     }
   }
 end)
@@ -66,4 +71,3 @@ lsp.setup()
 
 --pcall(vim.cmd, 'colorscheme onedark')
 pcall(vim.cmd, 'colorscheme gruvbox-material')
-
