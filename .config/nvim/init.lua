@@ -1,5 +1,4 @@
-vim.cmd(
-  [[
+vim.cmd([[
   set clipboard=unnamedplus
   set secure
   set noerrorbells
@@ -11,63 +10,63 @@ vim.cmd(
   set nowrap
   set number
   set scrolloff=12
-  set termguicolors
   set background=dark
-  set colorcolumn=90
+  set colorcolumn=120
+  set termguicolors
   set signcolumn=yes
   set smartindent
-  autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+  autocmd BufWritePre * lua vim.lsp.buf.format()
 ]])
 
-vim.g.gruvbox_material_background = 'hard'
-vim.g.gruvbox_material_better_performance = 1
+local lib = require 'lib'
+require 'plugins'
+require 'autocmd'
 
-require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+-- nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+-- keymaps
+for i = 1, 8 do
+  vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>tabn ' .. i .. '<CR>', { noremap = true, silent = true })
+end
+local builtin = require 'telescope.builtin'
+-- general
+vim.keymap.set('n', '<C-T>', lib.nvim_tree_new_tab, {})
+vim.keymap.set('n', '<C-B>', lib.focus_toggle_nvim_tree, { noremap = true, silent = true })
+-- telescope
+vim.keymap.set('n', '<C-P>', builtin.find_files, {})
+vim.keymap.set('n', '<C-F>', builtin.live_grep, {})
+vim.keymap.set('n', '<C-O>', builtin.buffers, {})
+vim.keymap.set('n', '<C-F1>', builtin.help_tags, {})
+-- nvim-ufo
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+-- setups
+lib.nvim_ufo_setup()
+lib.lsp_zero_setup()
+require('ufo').setup()
+require('Comment').setup()
+require('diagflow').setup()
+require('ibl').setup()
+require('telescope').setup()
+require('nvim-tree').setup {
+  hijack_cursor = true,
+  view = { width = 20 }
+}
 
-  -- Colorscheme
-  use 'joshdick/onedark.vim'
-  use 'sainnhe/gruvbox-material'
+local themes = {
+  ["gruvbox"] = function()
+    vim.g.gruvbox_material_background = 'hard'
+    vim.g.gruvbox_material_better_performance = 1
+    pcall(vim.cmd, 'colorscheme gruvbox-material')
+  end,
+  ["onedark"] = function()
+    pcall(vim.cmd, 'colorscheme onedark')
+  end,
+  ["wal"] = function()
+    vim.o.termguicolors = false
+    pcall(vim.cmd, 'colorscheme wal')
+  end
+}
 
-  use { 'neoclide/coc.nvim', branch = 'release' }
-  -- Lsg Signature (hints)
-  use 'ray-x/lsp_signature.nvim'
-
-  -- General
-  use {
-    'windwp/nvim-autopairs',
-    config = function() require("nvim-autopairs").setup {} end
-  }
-  -- LSP
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
-    requires = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lua' },
-
-      -- Snippets
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
-    }
-  }
-end)
-
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
-
-lsp.setup()
-
---pcall(vim.cmd, 'colorscheme onedark')
-pcall(vim.cmd, 'colorscheme gruvbox-material')
+themes["onedark"]()

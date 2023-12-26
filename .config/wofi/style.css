@@ -1,47 +1,48 @@
 @import "/home/USERNAME/.cache/wal/colors-waybar.css";
 
 * {
-    font-family: Roboto Mono;
+  font-family: RobotoMono Nerd Font Propo;
+  font-weight: Bold;
+  font-size: 18px;
 }
 
 window {
-    background-color: rgba(00, 00, 00, 0);
+  background-color: rgba(00, 00, 00, 0);
 }
 
 /* */
 #input {
-    border: 2px solid @background;
-    border-radius: 0px;
-    background-color: @background;
-    color: @foreground;
+  border: 2px solid @background;
+  border-radius: 0px;
+  background-color: @background;
+  color: @foreground;
 }
 
 /*cell */
 #inner-box {
-    border: 2px solid @background;
-    background-color: @color2;
+  border: 2px solid @background;
+  background-color: @color2;
 }
 
 /*cell nth*/
-#entry:nth-child(even){
-    background-color: @color2;
+#entry:nth-child(even) {
+  background-color: @color2;
 }
 
 /*cell selected*/
 #entry:selected {
-    background-color: @color4;
+  background-color: @color4;
 }
 
 /*container*/
 #outer-box {
-    margin: 5px;
-    padding:20px;
-    background-color: rgba(00, 00, 00, 0);
+  margin: 5px;
+  padding: 20px;
+  background-color: rgba(00, 00, 00, 0);
 }
 
 /***/
 #text {
-    padding: 5px;
-    color: @foreground;
+  padding: 5px;
+  color: @foreground;
 }
-

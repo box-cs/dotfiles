@@ -6,20 +6,13 @@
     "custom/rpm": {
         "format": "{} RPM {icon}",
         "format-icons": [""],
-        "exec": "~/.config/sway/fans-asus.sh",
-        "interval": 2,
+        "exec": "~/.config/sway/fans.sh",
+        "interval": 2
     },
     "tray": {
         "icon-size": 16,
         "spacing": 10
       },
-    "network": {
-        "interface": "eth0",
-        "format": "{ssid}",
-        "format-disconnected": "OFFLINE",
-        "format-ethernet": "{ipaddr} ",
-        "on-click": "alacritty -e nmtui"
-    },
     "network": {
         "interface": "wlan0",
         "format": "{essid} {frequency}GHz",
@@ -42,7 +35,8 @@
         "smooth-scrolling-threshold": 0.02,
         "format-icons": ["", "", ""],
         "format-source":"Mic ON",
-        "format-source-muted":"Mic OFF"
+        "format-source-muted":"Mic OFF",
+        "on-click" : "pavucontrol"
       },
     "backlight": {
         "device": "acpi_video0",
@@ -66,6 +60,6 @@
     },
     "clock": {
         "format": " {:%H:%M}",
-        "format-alt": " It's {:%A, %b %d - %H:%M}",
+        "format-alt": " It's {:%A, %b %d - %H:%M}"
     }
 }

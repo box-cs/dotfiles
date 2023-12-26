@@ -1,14 +1,13 @@
 @import "/home/USERNAME/.cache/wal/colors-waybar.css";
 
 * {
-    color:  @foreground;
-    border: none;
+    color: @foreground;
     border-radius: 0;
+    font-family: "RobotoMono Nerd Font Propo";
+    font-size: 18px;
     font-weight: bold;
-    font-family: "Roboto Mono Medium", "Font Awesome 5 Free Solid";
-    font-size: 14px;
     min-height: 2em;
-}
+  }
 
 window#waybar {
     background-color: @background;
