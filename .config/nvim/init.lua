@@ -41,18 +41,6 @@ vim.keymap.set('n', '<C-F1>', builtin.help_tags, {})
 -- nvim-ufo
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
--- setups
-lib.nvim_ufo_setup()
-lib.lsp_zero_setup()
-require('ufo').setup()
-require('Comment').setup()
-require('diagflow').setup()
-require('ibl').setup()
-require('telescope').setup()
-require('nvim-tree').setup {
-  hijack_cursor = true,
-  view = { width = 20 }
-}
 
 local themes = {
   ["gruvbox"] = function()

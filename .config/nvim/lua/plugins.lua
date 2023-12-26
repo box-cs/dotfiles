@@ -1,3 +1,5 @@
+local lib = require "lib"
+
 require('packer').startup(function(use)
   -- Cope-ilot
   use 'github/copilot.vim'
@@ -40,11 +42,20 @@ require('packer').startup(function(use)
   use 'nvim-tree/nvim-tree.lua'
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    requires = { { 'nvim-lua/plenary.nvim' } }
+    requires = { { 'nvim-lua/plenary.nvim' } },
+    config = function()
+      require('telescope').setup()
+    end
   }
-  use 'lukas-reineke/indent-blankline.nvim'
-  use 'dgagn/diagflow.nvim'
-  use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+  use { 'lukas-reineke/indent-blankline.nvim', config = function()
+    require("ibl").setup()
+  end }
+  use { 'dgagn/diagflow.nvim', config = function()
+    require('diagflow').setup()
+  end }
+  use { 'kevinhwang91/nvim-ufo',
+    requires = 'kevinhwang91/promise-async',
+    config = function() require('ufo').setup() end }
   use {
     'numToStr/Comment.nvim',
     config = function()
@@ -56,3 +67,10 @@ require('packer').startup(function(use)
     config = function() require('gitsigns').setup() end
   }
 end)
+-- setups
+require('nvim-tree').setup {
+  hijack_cursor = true,
+  view = { width = 25 }
+}
+lib.nvim_ufo_setup()
+lib.lsp_zero_setup()
