@@ -3,7 +3,7 @@ local lib = require "lib"
 require('packer').startup(function(use)
   -- Cope-ilot
   use 'github/copilot.vim'
-  -- Packer can manage itself
+  -- Packer
   use 'wbthomason/packer.nvim'
   -- Colorscheme
   use 'joshdick/onedark.vim'
@@ -66,11 +66,40 @@ require('packer').startup(function(use)
     'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
     config = function() require('gitsigns').setup() end
   }
+  -- maps
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+  -- theme
+  use 'NvChad/nvim-colorizer.lua'
+  use 'projekt0n/github-nvim-theme'
 end)
 -- setups
+require('github-theme').setup({
+  options = {
+    dim_inactive = true,
+    styles = {
+      comments = 'NONE', -- `:help attr-list`
+      keywords = 'NONE',
+      variables = 'bold',
+      types = 'italic',
+    },
+  },
+})
+require('colorizer').setup()
 require('nvim-tree').setup {
   hijack_cursor = true,
-  view = { width = 25 }
+  view = { width = 30 }
 }
+require('diagflow').setup()
 lib.nvim_ufo_setup()
 lib.lsp_zero_setup()

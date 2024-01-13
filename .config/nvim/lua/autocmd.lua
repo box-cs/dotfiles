@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   desc = "Resize nvim-tree if nvim window got resized",
   group = vim.api.nvim_create_augroup("NvimTreeResize", { clear = true }),
   callback = function()
-    local ratio = 15 / 100
+    local ratio = 20 / 100
     local width = math.floor(vim.go.columns * ratio)
     vim.cmd("tabdo NvimTreeResize " .. width)
   end,

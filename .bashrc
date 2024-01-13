@@ -1,15 +1,13 @@
-# If not running interactively, don't do anything
- [[ $- != *i* ]] && return
-# Startup sway and swaybg 
+[[ $- != *i* ]] && return
 if [[ -z $DISPLAY  ]] && [[ $(tty) = /dev/tty1 ]]; then
-    exec sway 
+  exec sway 
 fi
 
 alias vim=nvim
-#alias code='code --enable-features=UseOzonePlatform --ozone-platform=wayland'
 alias ls='ls --color=auto'
 alias py='python3'
 alias weather='curl wttr.in'
+alias swayprop='~/.config/sway/swayprop.sh'
 
 function gu {
   case $1 in
@@ -17,24 +15,20 @@ function gu {
       git config user.name "$name2"
       git config user.email "$email2"
       eval $(ssh-agent)
-      ssh-add ~/.ssh/id_ed25519
+      ssh-add "$ssh2"
       ;;
     *)
       git config user.name "$name1"
       git config user.email "$email1"
       eval $(ssh-agent)
-      ssh-add ~/.ssh/id_rsa
+      ssh-add "$ssh1"
       ;;
   esac
 } 
 
-function swayprop() {
-  $(~/.config/sway/swayprop.sh)
-} 
-
-function __virtualenv_info() {
+function __virtualenv_info {
   if [[ -n "$VIRTUAL_ENV" ]]; then
-      venv="${VIRTUAL_ENV##*/}"
+    venv="${VIRTUAL_ENV##*/}"
   else
     venv=""
   fi 

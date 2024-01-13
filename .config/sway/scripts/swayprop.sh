@@ -12,4 +12,4 @@ first(
 ')"
 
 [ "$script" != "" ] &&
-    swaymsg -t get_tree | jq "$script"
+swaymsg -t get_tree | jq "$script"

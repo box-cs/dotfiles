@@ -1,65 +1,111 @@
 {
-    "layer": "top",
-    "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["clock"],
-    "modules-right": ["network", "temperature", "cpu", "custom/rpm", "memory", "backlight", "pulseaudio","tray", "battery"],
-    "custom/rpm": {
-        "format": "{} RPM {icon}",
-        "format-icons": [""],
-        "exec": "~/.config/sway/fans.sh",
-        "interval": 2
+  "layer": "top",
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "network",
+    "group/stats",
+    "memory",
+    "backlight",
+    "pulseaudio",
+    "tray",
+    "battery"
+  ],
+  "group/stats": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
     },
-    "tray": {
-        "icon-size": 16,
-        "spacing": 10
-      },
-    "network": {
-        "interface": "wlan0",
-        "format": "{essid} {frequency}GHz",
-        "format-disconnected": "OFFLINE"
+    "modules": [
+      "temperature",
+      "cpu",
+      "custom/rpm"
+    ]
+  },
+  "custom/rpm": {
+    "format": "{} RPM {icon}",
+    "format-icons": [
+      ""
+    ],
+    "exec": "~/.config/sway/fans.sh",
+    "interval": 2
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 16
+  },
+  "network": {
+    "interface": "wlan0",
+    "format": "{ssid} {icon}",
+    "format-wifi": "{essid} {frequency}GHz",
+    "format-ethernet": "{ipaddr} ",
+    "format-disconnected": "OFFLINE",
+    "on-click": "alacritty -e nmtui"
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "{usage}% {icon}",
+    "format-icons": [
+      ""
+    ],
+    "max-length": 10,
+    "min-length": 3
+  },
+  "memory": {
+    "format": "{used}/{total} {icon}",
+    "format-icons": [
+      ""
+    ]
+  },
+  "pulseaudio": {
+    "format": "{volume} {icon} {format_source}",
+    "format-muted": "MUTED",
+    "smooth-scrolling-threshold": 0.02,
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
+    "format-source": "Mic ON",
+    "format-source-muted": "Mic OFF",
+    "on-click": "pavucontrol"
+  },
+  "backlight": {
+    "device": "acpi_video0",
+    "format": "{}% {icon}",
+    "format-icons": [
+      ""
+    ],
+    "smooth-scrolling-threshold": 0.02,
+    "on-scroll-up": "light -A 1",
+    "on-scroll-down": "light -U 1"
+  },
+  "battery": {
+    "bat": "BAT0",
+    "interval": 5,
+    "states": {
+      "warning": 30,
+      "critical": 15
     },
-    "cpu": {
-        "interval": 5,
-        "format": "{usage}% {icon}",
-        "format-icons": [""],
-        "max-length": 10,
-        "min-length": 3
-    },
-    "memory": {
-        "format": "{used}/{total} {icon}",
-        "format-icons": [""]
-    },
-    "pulseaudio": {
-        "format": "{volume} {icon} {format_source}",
-        "format-muted": "MUTED",
-        "smooth-scrolling-threshold": 0.02,
-        "format-icons": ["", "", ""],
-        "format-source":"Mic ON",
-        "format-source-muted":"Mic OFF",
-        "on-click" : "pavucontrol"
-      },
-    "backlight": {
-        "device": "acpi_video0",
-        "format": "{}% {icon}",
-        "format-icons": [""],
-        "smooth-scrolling-threshold": 0.02,
-        "on-scroll-up": "light -A 1",
-        "on-scroll-down": "light -U 1"
-    },
-    "battery": {
-        "bat": "BAT0",
-        "interval": 5,
-        "states": {
-          "warning": 30,
-          "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging" : "⚡",
-        "format-icons": ["", "", "", "", ""],
-        "max-length": 25
-    },
-    "clock": {
-        "format": " {:%H:%M}",
-        "format-alt": " It's {:%A, %b %d - %H:%M}"
-    }
+    "format": "{capacity}% {icon}",
+    "format-charging": "⚡",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "max-length": 25
+  },
+  "clock": {
+    "format": " {:%H:%M}",
+    "format-alt": " It's {:%A, %b %d - %H:%M}"
+  }
 }
