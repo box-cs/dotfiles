@@ -1,0 +1,10 @@
+[Unit]
+Description=NVIDIA GPU Undervolt Python Script
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python /home/$USER/source/python/nvidia-oc/undervolt.py
+User=root
+
+[Install]
+WantedBy=graphical.target
